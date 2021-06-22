@@ -5,7 +5,7 @@ The Tables from
 
 TidyData.csv
 #--------------------------
-Includes meand and standard deviation for each subject and each activity.
+Includes mean and standard deviation for each subject and each activity.
 #-------------------------
 
 There are N = 30 subjects: (Each with 6 activity labels)
