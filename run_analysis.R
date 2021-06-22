@@ -1,25 +1,42 @@
-# R Script
-# Sun Mar 14 17:18:43 2021 ------------------------------
-library(tidyverse)
-# read Data from Test
+#coursera week 4 - Getting and cleaning Data
 
-setwd("C:/Users/pbraeutigam/Documents/R/R_Git/GACD_week4/Dataset")
-#  read subject_test.txt - who performed the test
-whotested <- read.table("test/subject_test.txt")
-#  read X test #
-          # 'test/X_test.txt': Test set.
-Xtest <- read.table("test/X_test.txt")
-Xtestnames <- 
-#read Y test
-          #  test/y_test.txt': Test labels.
-Ytest <- read.table("test/y_test.txt")
+#Appropriately labels the data set with descriptive variable names Number 4
+# get the names from features.txt
+features <- read.table("features.txt")
+# only second column needed
+features <- features[2]
+#to get a vector transform it
+features <- t(features)
+# first, read all the test, data, name is our feature-vector
+test_X <- read.table("test/X_test.txt", col.names = features) # test DATA 
+test_Y <- read.table("test/y_test.txt", col.names = "activity_grp") # test activity LABELS --> Number 3, descriptive activity names
+test_subject<- read.table("test/subject_test.txt", col.names = "subject_num") # test SUBJECT#
 
-getwd()
-subjekt <- read.table("Dataset/test/subject_test.txt")
-#List all files from the test set
-Files <- list.files(path = "Dataset/test/Inertial Signals", pattern = "txt")
-setwd(paste0(getwd(), "/Dataset/test/Inertial Signals"))
-#read all files from test set and bind them together (cbind)
-List_using = lapply(Files, read.table)
-Data_bind <-do.call("cbind", List_using)
-Data_bind <- tbl_df(Data_bind)
+bind.Test <- cbind(test_subject, test_Y, test_X)
+
+train_Y <- read.table("train/y_train.txt", col.names="activity_grp")# train DATA
+train_X <- read.table("train/X_train.txt", col.names = features) # train activity LABELS
+train_subject <- read.table("train/subject_train.txt", col.names = "subject_num") # train SUBJECT#
+
+bind.Subject <- cbind(train_subject, train_Y, train_X)
+# now merge the data together
+# Merges the training and the test sets to create one data set. Number 1.
+Data <- rbind(bind.Test, bind.Subject)
+
+library(tibble)
+Data <- as_tibble(Data)
+Data # looking at data
+
+# Number 2 Extracts only the measurements on the mean and standard deviation for each measurement.
+# filter all columns with the char "mean" and "std" in it.
+library(dplyr)
+grep.mean <- Data[,grepl("mean", names(Data))]
+grep.std  <- Data[,grepl("std", names(Data))]
+extract <- cbind(Data[1], grep.mean, grep.std)
+
+# Number 5
+# From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.#
+extract%>%
+          group_by(subject_num)%>%
+          summarise(
+                    across(.cols = everything(), mean))
