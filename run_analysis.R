@@ -1,16 +1,25 @@
 # R Script
-#coursera week 4 - Getting and cleaning Data
-#
-#You should create one R script called run_analysis.R that does the following. 
-# 5 Steps
-# Step 1. Merges the training and the test sets to create one data set.
+# Sun Mar 14 17:18:43 2021 ------------------------------
+library(tidyverse)
+# read Data from Test
 
-# at first, read all the data
-test_X <- read.table("test/X_test.txt") # test DATA
-test_Y <- read.table("test/y_test.txt") # test activity LABELS
-test_subject<- read.table("test/subject_test.txt") # test SUBJECT#
+setwd("C:/Users/pbraeutigam/Documents/R/R_Git/GACD_week4/Dataset")
+#  read subject_test.txt - who performed the test
+whotested <- read.table("test/subject_test.txt")
+#  read X test #
+          # 'test/X_test.txt': Test set.
+Xtest <- read.table("test/X_test.txt")
+Xtestnames <- 
+#read Y test
+          #  test/y_test.txt': Test labels.
+Ytest <- read.table("test/y_test.txt")
 
-train_Y <- read.table("train/y_train.txt")# train DATA
-train_X <- read.table("train/X_train.txt") # train activity LABELS
-train_subject <- read.table("train/subject_train.txt") # train SUBJECT#
-# now merge the data together
+getwd()
+subjekt <- read.table("Dataset/test/subject_test.txt")
+#List all files from the test set
+Files <- list.files(path = "Dataset/test/Inertial Signals", pattern = "txt")
+setwd(paste0(getwd(), "/Dataset/test/Inertial Signals"))
+#read all files from test set and bind them together (cbind)
+List_using = lapply(Files, read.table)
+Data_bind <-do.call("cbind", List_using)
+Data_bind <- tbl_df(Data_bind)
