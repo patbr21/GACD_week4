@@ -42,10 +42,6 @@ extract <- cbind(Data[1], Data[2], grep.mean, grep.std)
 # use descriptive names
 colnames(extract) <- sub("-mean\\()","Mean",names(extract))
 colnames(extract) <- sub("-std\\()","Std",names(extract))
-colnames(extract) <- sub("-X","X",names(extract))
-colnames(extract) <- sub("-Y","Y",names(extract))
-colnames(extract) <- sub("-Z","Z",names(extract))
-colnames(extract) <- sub("BodyBody","Body",names(extract))
 colnames(extract) <- sub("\\()","",names(extract))
 
 # From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.#
