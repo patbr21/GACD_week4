@@ -8,7 +8,7 @@ features <- read.table("features.txt")
 # only second column needed
 features <- features[2]
 
-#to get a vector transform it
+# to get a vector transform it
 features <- t(features)
 
 # first, read all the test, data, name is our feature-vector
@@ -39,7 +39,7 @@ grep.mean <- Data[,grepl("mean", names(Data))]
 grep.std  <- Data[,grepl("std", names(Data))]
 extract <- cbind(Data[1], Data[2], grep.mean, grep.std)
 
-#use descriptive names
+# use descriptive names
 colnames(extract) <- sub("-mean\\()","Mean",names(extract))
 colnames(extract) <- sub("-std\\()","Std",names(extract))
 colnames(extract) <- sub("-X","X",names(extract))
@@ -48,7 +48,6 @@ colnames(extract) <- sub("-Z","Z",names(extract))
 colnames(extract) <- sub("BodyBody","Body",names(extract))
 colnames(extract) <- sub("\\()","",names(extract))
 
-#colnames(vartable) <- sub("\\()","",names(vartable))
 # From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.#
 Tidydata <- extract%>%
           group_by(subject_num, activity_grp)%>%
