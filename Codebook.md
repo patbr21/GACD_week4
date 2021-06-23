@@ -112,6 +112,7 @@ fBodyAccJerk.meanFreq...X
 fBodyAccJerk.meanFreq...Y	
 
 fBodyAccJerk.meanFreq...Z	
+
 fBodyGyro.mean...X	
 
 fBodyGyro.mean...Y	
@@ -157,6 +158,7 @@ tBodyAccJerk.std...X
 tBodyAccJerk.std...Y	
 
 tBodyAccJerk.std...Z	
+
 tBodyGyro.std...X	
 
 tBodyGyro.std...Y	
